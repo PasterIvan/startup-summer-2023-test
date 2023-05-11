@@ -24,10 +24,10 @@ instance.interceptors.request.use((config) => {
 });
 
 export const vacancyAPI = {
-  async getVacancy(params: any) {
-    return instance.get("vacancies", { params });
+  getVacancy(params: any) {
+    return instance.get("vacancies/", { params });
   },
-  async getCatalogues() {
-    return instance.get("catalogues");
+  getCatalogues() {
+    return instance.get("catalogues/");
   },
 };

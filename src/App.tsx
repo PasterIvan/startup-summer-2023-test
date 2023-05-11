@@ -6,7 +6,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { loginTC } from "./bll/authReducer";
 import { Head } from "./components/Header/Head";
 import { Search } from "./components/Search/Search";
-import { useAppDispatch } from "./hooks/hooks";
+import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 
 const links = [
   { link: "search", label: "Поиск вакансий" },
@@ -15,10 +15,11 @@ const links = [
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { access_token } = useAppSelector((state) => state.auth.login);
 
   useEffect(() => {
-    dispatch(loginTC());
-  });
+    if (access_token === "") dispatch(loginTC());
+  }, []);
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>

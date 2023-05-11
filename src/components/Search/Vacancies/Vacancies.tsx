@@ -29,11 +29,11 @@ export const Vacancies: React.FC = () => {
     setSearchParams({
       ...Object.fromEntries(searchParams),
       ...queryParams,
+      page: "0",
     });
   };
 
   const setPageParam = (value: string): void => {
-    // setPage(value);
     const queryParams: {
       page?: string;
     } = {};

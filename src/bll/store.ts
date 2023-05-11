@@ -24,7 +24,6 @@ export const store = configureStore({
 store.subscribe(() => {
   saveState({
     auth: store.getState().auth,
-    filters: store.getState().filters,
   });
 });
 
