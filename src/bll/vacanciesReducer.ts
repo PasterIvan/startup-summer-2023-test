@@ -30,10 +30,12 @@ const slice = createSlice({
         type_of_work: { title: "" },
       },
     ],
+    total: 1,
   },
   reducers: {
     setVacancy(state, action: PayloadAction<any>) {
       state.vacancies = action.payload.objects;
+      state.total = action.payload.total < 500 ? action.payload.total / 4 : 125;
     },
   },
 });

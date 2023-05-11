@@ -46,6 +46,7 @@ export const Search: React.FC = () => {
     setSearchParams({
       ...Object.fromEntries(searchParams),
       ...queryParams,
+      page: "0",
     });
   };
 

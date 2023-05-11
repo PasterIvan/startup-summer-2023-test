@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 
-import { Button, Flex, Input } from "@mantine/core";
+import { Button, Flex, Input, Pagination } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { useSearchParams } from "react-router-dom";
 
@@ -9,19 +9,37 @@ import { useAppSelector } from "../../../hooks/hooks";
 import { Vacancy } from "./Vacancy";
 
 export const Vacancies: React.FC = () => {
-  const { vacancies } = useAppSelector((state) => state.vacancies);
-  const { paramsState } = useAppSelector((state) => state.filters);
+  const { vacancies, total } = useAppSelector((state) => state.vacancies);
+  const { page, keyword } = useAppSelector(
+    (state) => state.filters.paramsState,
+  );
+
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [keyword, setKeyword] = useState(paramsState.keyword);
+  const [newKeyword, setKeyword] = useState(keyword);
 
   const setKeywordSearch = (): void => {
     const queryParams: {
       keyword?: string;
     } = {};
 
-    if (keyword) queryParams.keyword = keyword;
+    if (newKeyword) queryParams.keyword = newKeyword;
     else searchParams.delete("keyword");
+
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      ...queryParams,
+    });
+  };
+
+  const setPageParam = (value: string): void => {
+    // setPage(value);
+    const queryParams: {
+      page?: string;
+    } = {};
+
+    if (value) queryParams.page = value;
+    else searchParams.delete("page");
 
     setSearchParams({
       ...Object.fromEntries(searchParams),
@@ -35,7 +53,7 @@ export const Vacancies: React.FC = () => {
       miw={773}
       gap="sm"
       justify="flex-start"
-      align="flex-start"
+      align="center"
       direction="column"
       wrap="nowrap"
     >
@@ -44,7 +62,7 @@ export const Vacancies: React.FC = () => {
         radius="0.7rem"
         miw={773}
         icon={<IconSearch size="1.5rem" />}
-        defaultValue={keyword}
+        defaultValue={newKeyword}
         placeholder="Введите название вакансии"
         rightSection={
           <Button radius="md" onClick={setKeywordSearch}>
@@ -59,6 +77,14 @@ export const Vacancies: React.FC = () => {
       {vacancies.map((vacancy) => (
         <Vacancy key={vacancy.id} vacancy={vacancy} />
       ))}
+      <Pagination
+        total={total}
+        value={Number(searchParams.get("page")) + 1 || 0}
+        defaultValue={Number(page) + 1 || 0}
+        onChange={(value) => {
+          setPageParam((value - 1).toString());
+        }}
+      />
     </Flex>
   );
 };
