@@ -3,8 +3,8 @@ import React, { useEffect, useMemo } from "react";
 import { Container, Flex } from "@mantine/core";
 import { useSearchParams } from "react-router-dom";
 
-import { cataloguesTC } from "../../bll/filtersReducer";
-import { setPackParams, vacancyTC } from "../../bll/vacanciesReducer";
+import { setParamsState } from "../../bll/filtersReducer";
+import { vacancyTC } from "../../bll/vacanciesReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { getActualSearchParams } from "../../utils/getActualParams";
 
@@ -13,27 +13,51 @@ import { Vacancies } from "./Vacancies/Vacancies";
 
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { vacancies } = useAppSelector((state) => state.vacancies);
-  const params = useAppSelector((state) => state.vacancies.searchParams);
+  const { paramsState } = useAppSelector((state) => state.filters);
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const URLParams = useMemo(
     () => getActualSearchParams(searchParams),
     [searchParams],
   );
 
-  useEffect(() => {
-    dispatch(cataloguesTC());
-  }, []);
+  const setFilters = (
+    catalog: string | undefined,
+    paymentFrom: string | undefined,
+    paymentTo: string | undefined,
+  ): void => {
+    const queryParams: {
+      catalogues?: string;
+      payment_from?: string;
+      payment_to?: string;
+      published?: string;
+    } = {};
+
+    if (catalog) queryParams.catalogues = catalog;
+    else searchParams.delete("catalogues");
+
+    if (paymentFrom) queryParams.payment_from = paymentFrom;
+    else searchParams.delete("payment_from");
+
+    if (paymentTo) queryParams.payment_to = paymentTo;
+    else searchParams.delete("payment_to");
+
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      ...queryParams,
+    });
+  };
 
   useEffect(() => {
-    dispatch(setPackParams({ ...URLParams, count: 4, page: 1 }));
+    if (JSON.stringify(paramsState) !== JSON.stringify(URLParams))
+      dispatch(setParamsState(URLParams));
   }, [dispatch, URLParams]);
 
   useEffect(() => {
-    dispatch(vacancyTC(params));
-  }, [params]);
-  console.log(params);
+    if (JSON.stringify(paramsState) === JSON.stringify(URLParams))
+      dispatch(vacancyTC(paramsState));
+  }, [dispatch, paramsState]);
 
   return (
     <Container size="lg" px="xs" pt="100px">
@@ -44,8 +68,12 @@ export const Search: React.FC = () => {
         direction="row"
         wrap="nowrap"
       >
-        <Filters />
-        <Vacancies vacancies={vacancies} />
+        <Filters
+          onChangeFilters={(catalog, paymentFrom, paymentTo) =>
+            setFilters(catalog, paymentFrom, paymentTo)
+          }
+        />
+        <Vacancies />
       </Flex>
     </Container>
   );

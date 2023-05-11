@@ -19,13 +19,13 @@ export const vacancyTC = createAsyncThunk(
 const slice = createSlice({
   name: "vacancy",
   initialState: {
-    searchParams: {},
     vacancies: [
       {
         id: 1,
         currency: "",
         payment_from: 1,
         payment_to: 1,
+        agreement: 0,
         town: { title: "" },
         type_of_work: { title: "" },
       },
@@ -35,12 +35,9 @@ const slice = createSlice({
     setVacancy(state, action: PayloadAction<any>) {
       state.vacancies = action.payload.objects;
     },
-    setPackParams(state, action: PayloadAction<any>) {
-      state.searchParams = action.payload;
-    },
   },
 });
 
 export const vacanciesReducer = slice.reducer;
 
-export const { setVacancy, setPackParams } = slice.actions;
+export const { setVacancy } = slice.actions;

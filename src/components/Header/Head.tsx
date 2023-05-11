@@ -3,10 +3,59 @@ import React from "react";
 import { Container, createStyles, Group, Header, rem } from "@mantine/core";
 import { NavLink } from "react-router-dom";
 
+import { setParamsState } from "../../bll/filtersReducer";
+import { useAppDispatch } from "../../hooks/hooks";
 import logo from "../../img/logo.svg";
 
 type ActionType = Record<string, boolean>;
 
+interface HeaderResponsiveProps {
+  links: Array<{ link: string; label: string }>;
+}
+
+export const Head: React.FC<HeaderResponsiveProps> = ({
+  links,
+}: HeaderResponsiveProps) => {
+  const dispatch = useAppDispatch();
+  const { classes } = useStyles();
+  const setAction = ({ isActive }: ActionType): string =>
+    isActive ? classes.linkActive : classes.link;
+
+  const items = links.map((link) => (
+    <NavLink
+      key={link.link}
+      to={link.link}
+      className={setAction}
+      onClick={() =>
+        dispatch(
+          setParamsState({
+            page: undefined,
+            count: "4",
+            keyword: undefined,
+            catalogues: undefined,
+            payment_from: undefined,
+            payment_to: undefined,
+            published: "1",
+          }),
+        )
+      }
+    >
+      {link.label}
+    </NavLink>
+  ));
+
+  return (
+    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
+      <Container size="lg" className={classes.header}>
+        <div className={classes.logoContainer}>
+          <img src={logo} alt="logo" />
+          <span className={classes.logo}>Jobored</span>
+        </div>
+        <Group spacing={5}>{items}</Group>
+      </Container>
+    </Header>
+  );
+};
 export const HEADER_HEIGHT = rem(85);
 
 const useStyles = createStyles((theme) => ({
@@ -57,33 +106,3 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 500,
   },
 }));
-
-interface HeaderResponsiveProps {
-  links: Array<{ link: string; label: string }>;
-}
-
-export const Head: React.FC<HeaderResponsiveProps> = ({
-  links,
-}: HeaderResponsiveProps) => {
-  const { classes } = useStyles();
-  const setAction = ({ isActive }: ActionType): string =>
-    isActive ? classes.linkActive : classes.link;
-
-  const items = links.map((link) => (
-    <NavLink key={link.link} to={link.link} className={setAction}>
-      {link.label}
-    </NavLink>
-  ));
-
-  return (
-    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
-      <Container size="lg" className={classes.header}>
-        <div className={classes.logoContainer}>
-          <img src={logo} alt="logo" />
-          <span className={classes.logo}>Jobored</span>
-        </div>
-        <Group spacing={5}>{items}</Group>
-      </Container>
-    </Header>
-  );
-};

@@ -13,10 +13,13 @@ export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
     let res = "";
 
     if (from !== 0 && to !== 0) {
-      res += `${from} - ${to} ${vacancy.currency}`;
+      res +=
+        from === to
+          ? `${to} ${vacancy.currency}`
+          : `${from} - ${to} ${vacancy.currency}`;
     }
     if (from === 0 && to === 0) {
-      res += `не указана`;
+      res += vacancy.agreement ? `по договоренности` : `не указана`;
     }
     if ((from === 0 && to !== 0) || (from !== 0 && to === 0)) {
       if (from === 0 && to !== 0) res += `до ${to} ${vacancy.currency}`;

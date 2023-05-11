@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { vacancyAPI } from "../api/api";
+import { SearchParamsType } from "../utils/getActualParams";
 
 // THUNKS
 export const cataloguesTC = createAsyncThunk(
   "catalogues",
-  async (params, { dispatch }) => {
+  async (param, { dispatch }) => {
     try {
-      const res = await vacancyAPI.getСatalogues();
+      const res = await vacancyAPI.getCatalogues();
 
       dispatch(setCatalogues(res.data));
     } catch (err) {
@@ -19,7 +20,16 @@ export const cataloguesTC = createAsyncThunk(
 const slice = createSlice({
   name: "filters",
   initialState: {
-    catalogues: [
+    paramsState: {
+      page: undefined,
+      count: "4",
+      keyword: undefined,
+      catalogues: undefined,
+      payment_from: undefined,
+      payment_to: undefined,
+      published: "1",
+    } as SearchParamsType,
+    filters: [
       {
         title_rus: "",
         url_rus: "",
@@ -40,11 +50,14 @@ const slice = createSlice({
   },
   reducers: {
     setCatalogues(state, action) {
-      state.catalogues = action.payload;
+      state.filters = action.payload;
+    },
+    setParamsState(state, action) {
+      state.paramsState = action.payload;
     },
   },
 });
 
 export const filtersReducer = slice.reducer;
 
-export const { setCatalogues } = slice.actions;
+export const { setCatalogues, setParamsState } = slice.actions;
