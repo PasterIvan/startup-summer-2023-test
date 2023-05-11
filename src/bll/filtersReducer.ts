@@ -1,18 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { vacancyAPI } from "../api/api";
+import { requestStatus } from "../enums/requestStatus";
 import { SearchParamsType } from "../utils/getActualParams";
+
+import { setAppStatus } from "./appReducer";
 
 // THUNKS
 export const cataloguesTC = createAsyncThunk(
   "catalogues",
   async (param, { dispatch }) => {
+    dispatch(setAppStatus(requestStatus.LOADING));
+
     try {
       const res = await vacancyAPI.getCatalogues();
 
       dispatch(setCatalogues(res.data));
+      dispatch(setAppStatus(requestStatus.SUCCEEDED));
     } catch (err) {
       console.log(err);
+      dispatch(setAppStatus(requestStatus.FAILED));
     }
   },
 );

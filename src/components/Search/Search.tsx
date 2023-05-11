@@ -61,7 +61,7 @@ export const Search: React.FC = () => {
   }, [dispatch, paramsState]);
 
   return (
-    <Container size="lg" px="xs" pt="100px">
+    <Container size="lg" py="xl">
       <Flex
         mih={550}
         gap="xl"

@@ -45,7 +45,7 @@ export const Head: React.FC<HeaderResponsiveProps> = ({
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} mb={120} className={classes.root}>
+    <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container size="lg" className={classes.header}>
         <div className={classes.logoContainer}>
           <img src={logo} alt="logo" />
@@ -61,7 +61,6 @@ export const HEADER_HEIGHT = rem(85);
 const useStyles = createStyles((theme) => ({
   root: {
     background: "#FFFFFF",
-    position: "fixed",
     zIndex: 1,
   },
 

@@ -5,17 +5,24 @@ import {
 } from "@reduxjs/toolkit";
 
 import { authAPI } from "../api/authApi";
+import { requestStatus } from "../enums/requestStatus";
+
+import { setAppStatus } from "./appReducer";
 
 // THUNKS
 export const loginTC = createAsyncThunk(
   "auth/login",
   async (params, { dispatch }) => {
+    dispatch(setAppStatus(requestStatus.LOADING));
+
     try {
       const res = await authAPI.getToken();
 
       dispatch(setAuth(res.data));
+      dispatch(setAppStatus(requestStatus.SUCCEEDED));
     } catch (err) {
       console.log(err);
+      dispatch(setAppStatus(requestStatus.FAILED));
     }
   },
 );

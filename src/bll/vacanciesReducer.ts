@@ -1,17 +1,24 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { vacancyAPI } from "../api/api";
+import { requestStatus } from "../enums/requestStatus";
+
+import { setAppStatus } from "./appReducer";
 
 // THUNKS
 export const vacancyTC = createAsyncThunk(
   "vacancy",
   async (params: any, { dispatch }) => {
+    dispatch(setAppStatus(requestStatus.LOADING));
+
     try {
       const res = await vacancyAPI.getVacancy(params);
 
       dispatch(setVacancy(res.data));
+      dispatch(setAppStatus(requestStatus.SUCCEEDED));
     } catch (err) {
       console.log(err);
+      dispatch(setAppStatus(requestStatus.FAILED));
     }
   },
 );

@@ -78,6 +78,7 @@ export const Vacancies: React.FC = () => {
         <Vacancy key={vacancy.id} vacancy={vacancy} />
       ))}
       <Pagination
+        pt="xl"
         total={total}
         value={Number(searchParams.get("page")) + 1 || 0}
         defaultValue={Number(page) + 1 || 0}
