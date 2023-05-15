@@ -53,7 +53,7 @@
       "last 1 safari version"
     ]
   },
-  "main": "src/index.js",
+  "main": "src/index.tsx",
   "author": "PasterIvan <paster-ivan@yandex.by>",
   "license": "MIT",
   "devDependencies": {
