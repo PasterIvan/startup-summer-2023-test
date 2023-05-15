@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { Box, Select, Text, Button } from "@mantine/core";
+import { Box, Button, Flex, Select, Text } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 import { useSearchParams } from "react-router-dom";
 
 import { cataloguesTC } from "../../../bll/filtersReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import close from "../../../img/Close.svg";
 import { InputPayment } from "../../common/InputPayment";
 
 type FiltersProps = {
@@ -18,7 +19,6 @@ type FiltersProps = {
 
 export const Filters: React.FC<FiltersProps> = ({ onChangeFilters }) => {
   const dispatch = useAppDispatch();
-
   const { filters } = useAppSelector((state) => state.filters);
   const [searchParams] = useSearchParams();
 
@@ -47,9 +47,29 @@ export const Filters: React.FC<FiltersProps> = ({ onChangeFilters }) => {
         borderRadius: "0.7rem",
       }}
     >
-      <Text fw={700} size="lg" inline>
-        Фильтры
-      </Text>
+      <Flex justify="space-between">
+        <Text fw={700} size="lg" inline>
+          Фильтры
+        </Text>
+        <Button
+          variant="subtle"
+          color="gray"
+          radius="md"
+          size="md"
+          compact
+          h={20}
+          p={0}
+          rightIcon={<img src={close} alt="close" />}
+          onClick={() => {
+            setCatalog(undefined);
+            setPaymentFrom(undefined);
+            setPaymentTo(undefined);
+            onChangeFilters(undefined, undefined, undefined);
+          }}
+        >
+          Сбросить все
+        </Button>
+      </Flex>
       <Text fw={700} pt={32} pb={8} inline>
         Отрасль
       </Text>
@@ -62,7 +82,8 @@ export const Filters: React.FC<FiltersProps> = ({ onChangeFilters }) => {
         size="md"
         styles={{ rightSection: { pointerEvents: "none" } }}
         pb={20}
-        defaultValue={catalog}
+        value={catalog}
+        positionDependencies={[catalog]}
         data={filters.map((el) => ({
           value: el.key.toString(),
           label: el.title_trimmed,
@@ -75,7 +96,7 @@ export const Filters: React.FC<FiltersProps> = ({ onChangeFilters }) => {
       <InputPayment
         placeholder="От"
         min={1}
-        defaultValue={paymentFrom ? Number(paymentFrom) : undefined}
+        value={Number(paymentFrom) || undefined}
         onChange={(val) => {
           setPaymentFrom(val.toString());
         }}
@@ -83,7 +104,7 @@ export const Filters: React.FC<FiltersProps> = ({ onChangeFilters }) => {
       <InputPayment
         placeholder="До"
         min={1}
-        defaultValue={paymentTo ? Number(paymentTo) : undefined}
+        value={Number(paymentTo) || undefined}
         onChange={(val) => {
           setPaymentTo(val.toString());
         }}

@@ -8,6 +8,7 @@ import { authAPI } from "../api/authApi";
 import { requestStatus } from "../enums/requestStatus";
 
 import { setAppStatus } from "./appReducer";
+import { VacancyType } from "./vacanciesReducer";
 
 // THUNKS
 export const loginTC = createAsyncThunk(
@@ -38,17 +39,27 @@ const slice = createSlice({
       token_type: "",
       reg_user_resumes_count: 1,
     },
+    favourites: [] as VacancyType[],
   },
   reducers: {
     setAuth(state, action: PayloadAction<AuthType>) {
       state.login = action.payload;
+    },
+    changeFavorites(state, action: PayloadAction<VacancyType>) {
+      if (state.favourites.some((el) => el.id === action.payload.id)) {
+        state.favourites = state.favourites.filter(
+          (el) => el.id !== action.payload.id,
+        );
+      } else {
+        state.favourites.push(action.payload);
+      }
     },
   },
 });
 
 export const authReducer = slice.reducer;
 
-export const { setAuth } = slice.actions;
+export const { setAuth, changeFavorites } = slice.actions;
 
 type AuthType = {
   access_token: string;

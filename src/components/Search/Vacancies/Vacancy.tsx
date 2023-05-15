@@ -2,13 +2,18 @@ import React from "react";
 
 import { Box, Flex, Text, Image } from "@mantine/core";
 
+import { changeFavorites } from "../../../bll/authReducer";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import pin from "../../../img/pin.svg";
 import star from "../../../img/Star.svg";
+import starFav from "../../../img/StarFav.svg";
 
 type VacancyProps = {
   vacancy: any;
 };
 export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
+  const dispatch = useAppDispatch();
+  const { favourites } = useAppSelector((state) => state.auth);
   const payment = (from: number, to: number): string => {
     let res = "";
 
@@ -28,6 +33,9 @@ export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
 
     return res;
   };
+  const isFavorite = favourites.some((el) => el.id === vacancy.id);
+
+  console.log(favourites);
 
   return (
     <Box
@@ -44,7 +52,21 @@ export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
           <Text fz="lg" fw={700} c="blue">
             {vacancy.profession}
           </Text>
-          <Image maw={24} src={star} alt="Star" />
+          {isFavorite ? (
+            <Image
+              maw={24}
+              src={starFav}
+              alt="Star"
+              onClick={() => dispatch(changeFavorites(vacancy))}
+            />
+          ) : (
+            <Image
+              maw={24}
+              src={star}
+              alt="Star"
+              onClick={() => dispatch(changeFavorites(vacancy))}
+            />
+          )}
         </Flex>
         <Flex>
           <Text fw={600}>

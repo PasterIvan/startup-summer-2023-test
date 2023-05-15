@@ -22,6 +22,7 @@ export const saveState: any = (state: {
       token_type: string;
       reg_user_resumes_count: number;
     };
+    favourites: {};
   };
 }) => {
   try {

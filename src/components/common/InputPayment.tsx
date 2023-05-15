@@ -7,7 +7,7 @@ type InputPaymentProps = {
   placeholder: string;
   min?: number;
   max?: number;
-  defaultValue?: number;
+  value?: number;
   onChange: (val: number) => void;
 };
 
@@ -15,7 +15,7 @@ export const InputPayment: React.FC<InputPaymentProps> = ({
   placeholder,
   min,
   max,
-  defaultValue,
+  value,
   onChange,
 }) => {
   const handlers = useRef<NumberInputHandlers>();
@@ -36,7 +36,7 @@ export const InputPayment: React.FC<InputPaymentProps> = ({
         mt={8}
         min={min}
         max={max}
-        defaultValue={defaultValue}
+        value={value}
         onChange={(val: number) => onChange(val)}
         handlersRef={handlers}
       />
