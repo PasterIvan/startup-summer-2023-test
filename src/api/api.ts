@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { SearchParamsType } from "./types";
+
 const instance = axios.create({
   baseURL: "https://startup-summer-2023-proxy.onrender.com/2.0",
   headers: {
@@ -24,7 +26,7 @@ instance.interceptors.request.use((config) => {
 });
 
 export const vacancyAPI = {
-  getVacancy(params: any) {
+  getVacancy(params: SearchParamsType) {
     return instance.get("vacancies/", { params });
   },
   getVacancyById(id: number) {

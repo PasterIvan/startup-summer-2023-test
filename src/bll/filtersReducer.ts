@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { vacancyAPI } from "../api/api";
+import { SearchParamsType } from "../api/types";
 import { requestStatus } from "../enums/requestStatus";
-import { SearchParamsType } from "../utils/getActualParams";
 
 import { setAppStatus } from "./appReducer";
 

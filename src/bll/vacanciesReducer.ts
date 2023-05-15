@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { vacancyAPI } from "../api/api";
+import { SearchParamsType, VacancyType } from "../api/types";
 import { requestStatus } from "../enums/requestStatus";
 
 import { setAppStatus } from "./appReducer";
@@ -8,7 +9,7 @@ import { setAppStatus } from "./appReducer";
 // THUNKS
 export const vacancyTC = createAsyncThunk(
   "vacancy",
-  async (params: any, { dispatch }) => {
+  async (params: SearchParamsType, { dispatch }) => {
     dispatch(setAppStatus(requestStatus.LOADING));
 
     try {
@@ -141,79 +142,3 @@ const slice = createSlice({
 export const vacanciesReducer = slice.reducer;
 
 export const { setVacancies, setVacancyById } = slice.actions;
-
-export type VacancyType = {
-  id: number;
-  id_client: number;
-  payment_from: number;
-  payment_to: number;
-  date_pub_to: number;
-  date_archived: number;
-  date_published: number;
-  address: string;
-  payment: string;
-  profession: string;
-  work: string;
-  metro: {
-    id: number;
-    title: string;
-    id_metro_line: number;
-  }[];
-  currency: string;
-  moveable: boolean;
-  agreement: boolean;
-  anonymous: boolean;
-  type_of_work: {
-    id: number;
-    title: string;
-  };
-  place_of_work: {
-    id: number;
-    title: string;
-  };
-  education: {
-    id: number;
-    title: string;
-  };
-  experience: {
-    id: number;
-    title: string;
-  };
-  maritalstatus: {
-    id: number;
-    title: string;
-  };
-  children: {
-    id: number;
-    title: string;
-  };
-  already_sent_on_vacancy: boolean;
-  languages: [];
-  driving_licence: [];
-  catalogues: {
-    id: number;
-    title: string;
-    positions: { id: number; title: string }[];
-  }[];
-  agency: {
-    id: number;
-    title: string;
-  };
-  town: {
-    id: number;
-    title: string;
-    declension: string;
-    genitive: string;
-  };
-  client_logo: string;
-  age_from: number;
-  age_to: number;
-  gender: {
-    id: number;
-    title: string;
-  };
-  firm_name: string;
-  firm_activity: string;
-  link: string;
-  vacancyRichText: string;
-};

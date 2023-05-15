@@ -1,3 +1,5 @@
+import { SearchParamsType } from "../api/types";
+
 export const getActualSearchParams = (
   searchParams: URLSearchParams,
 ): SearchParamsType => {
@@ -10,13 +12,4 @@ export const getActualSearchParams = (
     payment_to: searchParams.get("payment_to") || undefined,
     published: searchParams.get("published") || "1",
   };
-};
-export type SearchParamsType = {
-  page?: string;
-  count?: string;
-  keyword?: string;
-  catalogues?: string;
-  payment_from?: string;
-  payment_to?: string;
-  published?: string;
 };

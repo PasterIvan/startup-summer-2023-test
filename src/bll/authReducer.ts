@@ -5,10 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 
 import { authAPI } from "../api/authApi";
+import { VacancyType } from "../api/types";
 import { requestStatus } from "../enums/requestStatus";
 
 import { setAppStatus } from "./appReducer";
-import { VacancyType } from "./vacanciesReducer";
 
 // THUNKS
 export const loginTC = createAsyncThunk(
@@ -51,7 +51,7 @@ const slice = createSlice({
           (el) => el.id !== action.payload.id,
         );
       } else {
-        state.favourites.push(action.payload);
+        state.favourites.unshift(action.payload);
       }
     },
   },

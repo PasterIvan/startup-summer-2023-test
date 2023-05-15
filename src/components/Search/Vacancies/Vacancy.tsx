@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Flex, Text, Image } from "@mantine/core";
 import { NavLink } from "react-router-dom";
 
+import { VacancyType } from "../../../api/types";
 import { changeFavorites } from "../../../bll/authReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import pin from "../../../img/pin.svg";
@@ -10,7 +11,7 @@ import star from "../../../img/Star.svg";
 import starFav from "../../../img/StarFav.svg";
 
 type VacancyProps = {
-  vacancy: any;
+  vacancy: VacancyType;
 };
 export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
   const dispatch = useAppDispatch();
