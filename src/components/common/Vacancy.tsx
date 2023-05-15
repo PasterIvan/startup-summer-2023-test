@@ -1,23 +1,17 @@
 import React from "react";
 
-import { Box, Flex, Text, Image } from "@mantine/core";
+import { Box, Flex, Image, Text } from "@mantine/core";
 import { NavLink } from "react-router-dom";
 
 import { VacancyType } from "../../api/types";
-import { changeFavorites } from "../../bll/authReducer";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import pin from "../../img/pin.svg";
-import star from "../../img/Star.svg";
-import starFav from "../../img/StarFav.svg";
+
+import { SvgStar } from "./SvgStar/SvgStar";
 
 type VacancyProps = {
   vacancy: VacancyType;
 };
 export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
-  const dispatch = useAppDispatch();
-  const { favourites } = useAppSelector((state) => state.auth);
-  const isFavorite = favourites.some((el) => el.id === vacancy.id);
-
   const payment = (from: number, to: number): string => {
     let res = "";
 
@@ -58,21 +52,7 @@ export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
               {vacancy.profession}
             </Text>
           </NavLink>
-          {isFavorite ? (
-            <Image
-              maw={24}
-              src={starFav}
-              alt="Star"
-              onClick={() => dispatch(changeFavorites(vacancy))}
-            />
-          ) : (
-            <Image
-              maw={24}
-              src={star}
-              alt="Star"
-              onClick={() => dispatch(changeFavorites(vacancy))}
-            />
-          )}
+          <SvgStar vacancy={vacancy} />
         </Flex>
         <Flex>
           <Text fw={600}>

@@ -15,7 +15,6 @@ export const DescriptionVacancy: React.FC = () => {
   useEffect(() => {
     if (id) dispatch(vacancyByIdTC(+id));
   }, []);
-  console.log(vacancy);
 
   return (
     <Container>

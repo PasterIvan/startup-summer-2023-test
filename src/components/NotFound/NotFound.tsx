@@ -9,13 +9,17 @@ export const NotFound: React.FC = () => {
   const navigation = useNavigate();
 
   return (
-    <Container size="md" py="xl">
+    <Container size="md" py={120}>
       <Flex justify="space-between" align="center" direction="column">
         <Image src={NotFoundImg} alt="NotFoundImg" maw={240} />
-        <Text size={24} fw={700}>
+        <Text size={24} weight={700} py={32}>
           Упс, здесь еще ничего нет!
         </Text>
-        <Button variant="light" onClick={() => navigation("../search")}>
+        <Button
+          size="md"
+          variant="light"
+          onClick={() => navigation("../search")}
+        >
           Поиск Вакансий
         </Button>
       </Flex>
