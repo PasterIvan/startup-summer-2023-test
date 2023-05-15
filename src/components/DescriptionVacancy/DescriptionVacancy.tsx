@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { vacancyByIdTC } from "../../bll/vacanciesReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { Vacancy } from "../Search/Vacancies/Vacancy";
+import { Vacancy } from "../common/Vacancy";
 
 export const DescriptionVacancy: React.FC = () => {
   const dispatch = useAppDispatch();

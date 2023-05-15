@@ -7,6 +7,7 @@ import { loginTC } from "./bll/authReducer";
 import { DescriptionVacancy } from "./components/DescriptionVacancy/DescriptionVacancy";
 import { Favorites } from "./components/Favorites/Favorites";
 import { Head } from "./components/Header/Head";
+import { NotFound } from "./components/NotFound/NotFound";
 import { Search } from "./components/Search/Search";
 import { requestStatus } from "./enums/requestStatus";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
@@ -41,8 +42,9 @@ export const App: React.FC = () => {
           <Route path="/" element={<Navigate to="search" />} />
           <Route path="search" element={<Search />} />
           <Route path="search/:id" element={<DescriptionVacancy />} />
+          <Route path="search/*" element={<NotFound />} />
           <Route path="favourites" element={<Favorites />} />
-          <Route path="404" element={<h1>404: PAGE NOT FOUND</h1>} />
+          <Route path="404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="404" />} />
         </Routes>
       </div>

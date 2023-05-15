@@ -4,9 +4,8 @@ import { Button, Flex, Input, Pagination } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { useSearchParams } from "react-router-dom";
 
-import { useAppSelector } from "../../../hooks/hooks";
-
-import { Vacancy } from "./Vacancy";
+import { useAppSelector } from "../../hooks/hooks";
+import { Vacancy } from "../common/Vacancy";
 
 export const Vacancies: React.FC = () => {
   const { vacancies, total } = useAppSelector((state) => state.vacancies);

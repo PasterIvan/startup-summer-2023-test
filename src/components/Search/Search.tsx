@@ -7,9 +7,9 @@ import { setParamsState } from "../../bll/filtersReducer";
 import { vacancyTC } from "../../bll/vacanciesReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { getActualSearchParams } from "../../utils/getActualParams";
+import { Filters } from "../common/Filters";
 
-import { Filters } from "./Filters/Filters";
-import { Vacancies } from "./Vacancies/Vacancies";
+import { Vacancies } from "./Vacancies";
 
 export const Search: React.FC = () => {
   const dispatch = useAppDispatch();

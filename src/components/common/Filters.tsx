@@ -4,10 +4,11 @@ import { Box, Button, Flex, Select, Text } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
 import { useSearchParams } from "react-router-dom";
 
-import { cataloguesTC } from "../../../bll/filtersReducer";
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
-import close from "../../../img/Close.svg";
-import { InputPayment } from "../../common/InputPayment";
+import { cataloguesTC } from "../../bll/filtersReducer";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import close from "../../img/Close.svg";
+
+import { InputPayment } from "./InputPayment";
 
 type FiltersProps = {
   onChangeFilters: (

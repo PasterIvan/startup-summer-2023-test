@@ -36,6 +36,7 @@ export const vacancyByIdTC = createAsyncThunk(
     } catch (err) {
       console.log(err);
       dispatch(setAppStatus(requestStatus.FAILED));
+      window.location.href = "../404";
     }
   },
 );

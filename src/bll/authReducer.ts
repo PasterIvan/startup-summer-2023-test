@@ -40,10 +40,14 @@ const slice = createSlice({
       reg_user_resumes_count: 1,
     },
     favourites: [] as VacancyType[],
+    favouritesPage: 0,
   },
   reducers: {
     setAuth(state, action: PayloadAction<AuthType>) {
       state.login = action.payload;
+    },
+    setFavouritesPage(state, action: PayloadAction<number>) {
+      state.favouritesPage = action.payload;
     },
     changeFavorites(state, action: PayloadAction<VacancyType>) {
       if (state.favourites.some((el) => el.id === action.payload.id)) {
@@ -59,7 +63,7 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer;
 
-export const { setAuth, changeFavorites } = slice.actions;
+export const { setAuth, changeFavorites, setFavouritesPage } = slice.actions;
 
 type AuthType = {
   access_token: string;
