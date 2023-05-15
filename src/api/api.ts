@@ -27,6 +27,9 @@ export const vacancyAPI = {
   getVacancy(params: any) {
     return instance.get("vacancies/", { params });
   },
+  getVacancyById(id: number) {
+    return instance.get(`vacancies/${id}`);
+  },
   getCatalogues() {
     return instance.get("catalogues/");
   },

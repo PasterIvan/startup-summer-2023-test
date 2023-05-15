@@ -4,6 +4,8 @@ import { LoadingOverlay, MantineProvider } from "@mantine/core";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { loginTC } from "./bll/authReducer";
+import { DescriptionVacancy } from "./components/DescriptionVacancy/DescriptionVacancy";
+import { Favorites } from "./components/Favorites/Favorites";
 import { Head } from "./components/Header/Head";
 import { Search } from "./components/Search/Search";
 import { requestStatus } from "./enums/requestStatus";
@@ -32,14 +34,14 @@ export const App: React.FC = () => {
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <div style={{ background: "#F7F7F8" }}>
+      <div style={{ background: "#F7F7F8", minHeight: "100vh" }}>
         <Head links={links} />
         <LoadingOverlay visible={load} overlayBlur={2} />
         <Routes>
           <Route path="/" element={<Navigate to="search" />} />
           <Route path="search" element={<Search />} />
-          <Route path="search/:id" element={<Search />} />
-          <Route path="favourites" element={<div>Favourites</div>} />
+          <Route path="search/:id" element={<DescriptionVacancy />} />
+          <Route path="favourites" element={<Favorites />} />
           <Route path="404" element={<h1>404: PAGE NOT FOUND</h1>} />
           <Route path="*" element={<Navigate to="404" />} />
         </Routes>

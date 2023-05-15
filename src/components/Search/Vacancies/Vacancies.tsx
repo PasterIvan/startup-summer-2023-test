@@ -51,7 +51,7 @@ export const Vacancies: React.FC = () => {
     <Flex
       mih={50}
       miw={773}
-      gap="sm"
+      gap="md"
       justify="flex-start"
       align="center"
       direction="column"

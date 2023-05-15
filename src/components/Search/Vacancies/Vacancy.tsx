@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Box, Flex, Text, Image } from "@mantine/core";
+import { NavLink } from "react-router-dom";
 
 import { changeFavorites } from "../../../bll/authReducer";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
@@ -14,6 +15,8 @@ type VacancyProps = {
 export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
   const dispatch = useAppDispatch();
   const { favourites } = useAppSelector((state) => state.auth);
+  const isFavorite = favourites.some((el) => el.id === vacancy.id);
+
   const payment = (from: number, to: number): string => {
     let res = "";
 
@@ -33,25 +36,27 @@ export const Vacancy: React.FC<VacancyProps> = ({ vacancy }) => {
 
     return res;
   };
-  const isFavorite = favourites.some((el) => el.id === vacancy.id);
-
-  console.log(favourites);
 
   return (
     <Box
       pos="relative"
       sx={{
         backgroundColor: "#fff",
-        padding: 20,
+        padding: 24,
         borderRadius: "0.7rem",
         width: "100%",
       }}
     >
       <Flex gap="sm" justify="flex-start" align="flex-start" direction="column">
         <Flex w="100%" justify="space-between" direction="row">
-          <Text fz="lg" fw={700} c="blue">
-            {vacancy.profession}
-          </Text>
+          <NavLink
+            to={`../search/${vacancy.id}`}
+            style={{ textDecoration: "none" }}
+          >
+            <Text fz="lg" fw={700} c="blue">
+              {vacancy.profession}
+            </Text>
+          </NavLink>
           {isFavorite ? (
             <Image
               maw={24}
