@@ -1,5 +1,5 @@
 {
-  "name": "startup-summer-2023-test",
+  "name": "startup-summer",
   "version": "0.1.0",
   "homepage": "https://PasterIvan.github.io/startup-summer-2023-test/",
   "dependencies": {
@@ -53,7 +53,7 @@
       "last 1 safari version"
     ]
   },
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "PasterIvan <paster-ivan@yandex.by>",
   "license": "MIT",
   "devDependencies": {
